@@ -30,7 +30,7 @@ const mongo = require("./database/dbConnect")
 
 //Generating server nodemon
 app.get("/",(req, res) => {
-    return res.json({message: "Server Running"})
+    return res.json({message: "Server Running..."})
 });
 
 
