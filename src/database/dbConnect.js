@@ -1,10 +1,29 @@
-const {MongoClient} = require("mongodb");
-const moongose = require("mongoose");
+
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const dbConnect = async() => {
+    await mongoose.connect(
+        `mongodb+srv://diegojfcampos:${process.env.mongoDB_password}@cluster0.uvzqwgp.mongodb.net/smart_stock_tracker?retryWrites=true&w=majority`, 
+        (error) => {
+            if(error){
+                return console.log("Connection Failed", error);
+        }else{console.log("MongoDB Connected");}       
+
+        }
+    );
+};
+
+module.exports = dbConnect;
 
 
-async function dbConnect(){
-    const url = "mongodb+srv://diegojfcampos:admin123@cluster0.uvzqwgp.mongodb.net/?retryWrites=true&w=majority";
-    const client = new MongoClient(url);
+
+//const {MongoClient} = require("mongodb");
+
+/**
+async function dbConnect(){     
+    const client = new MongoClient(`mongodb+srv://diegojfcampos:${process.env.mongoDB_password}@cluster0.uvzqwgp.mongodb.net/smart_stock_tracker?retryWrites=true&w=majority`);
 
     try{
         await client.connect();
@@ -20,24 +39,5 @@ async function dbConnect(){
 }
 
 dbConnect().catch(console.error);
-
-/** 
-async function listDatabases(client){
-    const databaseslist = await client.db().admin().listDatabases();
-    
-    console.log("Databases:");
-    databaseslist.databases.forEach(db => {
-        console.log(`- ${db.name}`);        
-    });
-}
- 
-
-
-const dbConnection = moongose.connect(
-    `${main().url}`    
-).then(() => {
-    console.log("MongoDb Connected")
-}).catch((err) => console.log("MondoDB Connection Failed"))
-**/
-
-module.exports = dbConnect;
+module.exports = dbConnect();
+ */
