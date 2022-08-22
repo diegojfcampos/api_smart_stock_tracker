@@ -30,7 +30,9 @@ router.post("/", async (req, res) =>{
             }else{
                 res.status(422).json({error: "Password are diferent."})
             }
-        }catch(error){res.status(500).json({error: error + " Register Failed."})}
+        }catch(error){
+            console.log(" Ocurred and error" + error); 
+            return res.status(500).json({error:"Register Failed."})}
         }
 });
 
