@@ -1,17 +1,20 @@
 
+//Imports
+
 const router = require("express").Router();
 const User = require("../models/User");
 const dbconnhection = require("../database/dbConnect");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
-const { application } = require("express");
+
 
 
 //Route signup / register
 router.post("/register", async (req, res) =>{
     const{email, password, checkpassword} = req.body;
 
+    //Validations
     if(!email){
         res.status(422).json({error: "Email is requerid"})
     }else if(!password){
@@ -20,24 +23,30 @@ router.post("/register", async (req, res) =>{
         res.status(422).json({error: "Password Check field is requerid"})
 
     }else{
-        //hashing passwords usinf "bcryptojs"
+        //hashing passwords using "bcryptojs" before save on database
         const salt = await bcrypt.genSalt(12);
         const passwordHash = await bcrypt.hash(password, salt);
         const checkpasswordHash = await bcrypt.hash(checkpassword, salt);
         
+        //Instantiating user object by mongooser schema
         const user = new User({
             email,
             password: passwordHash            
         });
 
+        //Registering
         try{
+            //Connecting MongoDB
             dbconnhection();    
+            //Searching for user instance in the Database
             const checkemail =  await User.findOne({email: email});
             if(checkemail){                
                 return res.status(500).json({message: "User already registered, use another e-mail or sign in."});}
-            else{            
-                if(user.password === checkpasswordHash){     
-                                
+            else{       
+                //Validating password
+                if(user.password === checkpasswordHash){   
+
+                    //Registering User           
                     await User.create(user);           
                     console.log("To Post New User");
                     res.status(200).json({message: "User Registered"})            
@@ -77,7 +86,7 @@ router.post("/login", async (req, res) => {
                 }else{
                     const secret = process.env.secret;
                     const token = jwt.sign({id: user._id},secret);
-                    return res.status(200).json({message: token})
+                    return res.status(200).json({user, Token: token})
                 }                
             }     
         }catch(error){
@@ -125,7 +134,35 @@ router.get("/:id",checkToken, async (req, res) =>{
 
 })
 
+router.delete("/userdelete/", async (req,res)=>{
 
+    const {email, password} = req.body;
+
+    if(!email){
+        res.status(404).json({message: "Email is require"})
+    }else if(!password){
+        res.status(404).json({message: "Password is require"})
+    }else{
+        try{
+            dbconnhection();
+            const userToDelet = await User.findOne({email: email});
+            
+            if(!userToDelet){
+                res.status(404).json({message: "User not found"})
+            }else{
+                const checkPassword = await bcrypt.compare(password, userToDelet.password)
+                console.log(checkPassword);
+                if(!checkPassword){
+                    res.status(404).json({message: "Access Deied"})
+                }else{
+                    await User.remove(userToDelet)
+                    return res.status(202).json({message: "User Deleted"});
+                }
+            }        
+        }catch(error){
+        res.status(404).json({message: "Process Denied"})
+        }
+    }
+});
 
 module.exports = router;
-

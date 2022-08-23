@@ -1,15 +1,12 @@
 //Importing Express / REQ, RES
 const express = require("express"); //importing express
-const req = require("express/lib/request");
 const app = express(); // instancing express
-const dotenv = require('dotenv').config();
+
+
 
 //Creating server and Allowing Json
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-
-//Importing mongodb / DB
-const { Db } = require("mongodb");
 
 //Importing moongose /Server
 const moongose = require("mongoose");
@@ -20,7 +17,8 @@ app.get("/",(req, res) => {
 });
 
 //Routes
-//Register
+
+//Register user
 const userRegister = require("./controller/authController");
 app.use("/userauth/", userRegister);
 
@@ -28,5 +26,15 @@ app.use("/userauth/", userRegister);
 const userLogin = require ("./controller/authController");
 app.use("/userauth/", userLogin);
 
+//Search User
 const userID = require ("./controller/authController");
 app.use("/userauth/", userID);
+
+//Delete User
+const userDelete = require("./controller/authController");
+app.use("/userauth", userDelete);
+
+//Getting crypto currences
+const getcryptos = require("./routes/coinGeckApiRoute");
+app.use("/getcryptos", getcryptos);
+
