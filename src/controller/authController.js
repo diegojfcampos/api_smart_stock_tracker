@@ -165,4 +165,19 @@ router.delete("/userdelete/", async (req,res)=>{
     }
 });
 
+//**
+
+router.User("/update", async (req, res) => {
+   const {email, password} = req.body;
+   
+   Const user = new User{
+        password
+   }
+   Const passwordUpdate = User.findOne({})
+}):
+
+
+*/
+
+
 module.exports = router;
