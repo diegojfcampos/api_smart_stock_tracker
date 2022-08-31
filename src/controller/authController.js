@@ -6,6 +6,7 @@ const User = require("../models/User");
 const dbconnhection = require("../database/dbConnect");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dbConnect = require("../database/dbConnect");
 const dotenv = require("dotenv").config();
 
 
@@ -150,8 +151,7 @@ router.delete("/userdelete/", async (req,res)=>{
             if(!userToDelet){
                 res.status(404).json({message: "User not found"})
             }else{
-                const checkPassword = await bcrypt.compare(password, userToDelet.password)
-                console.log(checkPassword);
+                const checkPassword = await bcrypt.compare(password, userToDelet.password)                
                 if(!checkPassword){
                     res.status(404).json({message: "Access Deied"})
                 }else{
@@ -165,4 +165,32 @@ router.delete("/userdelete/", async (req,res)=>{
     }
 });
 
+router.put("/userupdate", async(req, res) => {
+    const {email, password, newPassword} = req.body
+
+    try{
+        if(!email){
+            res.status(400).json({message: "Email is required"})
+        }else if(!password){
+            res.status(400).json({message: "Password required"})
+        }else if(!newPassword){
+            res.status(400).json({message: "Check Password is required"})
+        }else{
+            dbconnhection();
+            const userToUpdate = await User.findOne({email: email});
+            const passwordChecking = bcrypt.compare(password, userToUpdate.password);
+
+            if(!passwordChecking){
+                res.status(400).json({message: "Wrong Password"})
+            }else{
+                await User.updateOne({email: newPassword})
+                res.status(200).json({message: "Password Updated"})
+            }        
+        }
+    }catch(error){
+        res.status(404).json({message: "Update failed"});
+    }       
+});
+
 module.exports = router;
+
