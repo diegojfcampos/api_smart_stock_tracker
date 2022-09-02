@@ -34,12 +34,55 @@ router.get("/eur", async(req, res) =>{
 router.get("/btc", async(req, res) =>{
 
     try{
-    const response = await axios.get(urlGetCoinsBTC);
-    return res.status(200).json(response.data);
+        const response = await axios.get(urlGetCoinsBTC);
+        const data = response.data
+        const filterData = [{}]
+
+        for(let user in data){
+            const coinRank = data[user].market_cap_rank;
+            const coinImg = data[user].image;
+            const coinId = data[user].id;
+            const coinName = data[user].name;
+            const coinPrice = data[user].current_price;
+            const coin24Change = data[user].price_change_percentage_24h;
+            const coinCap = data[user].market_cap;
+            const coinVolume = data[user].total_volume;
+
+            filterData.push({coinRank, coinId, coinName, coinPrice, coin24Change, coinCap, coinVolume, coinImg});
+            
+        }  
+
+        return res.status(200).json(response.data);
+
 
     }catch(error){ res.status(404).json({msg: "Error to access currencys."})};
 })
 
+//Filtered Datas
+
+//Getting coins quotation in USD
+router.get("/btcfilter", async(req, res) =>{
+
+    try{
+        const response = await axios.get(urlGetCoinsBTC);
+        const data = response.data
+        const filterData = []
+
+        for(let user in data){
+            const coinRank = data[user].market_cap_rank;
+            const coinImg = data[user].image;
+            const coinId = data[user].id;
+            const coinName = data[user].name;
+            const coinPrice = data[user].current_price;
+            const coin24Change = data[user].price_change_percentage_24h;
+            const coinCap = data[user].market_cap;
+            const coinVolume = data[user].total_volume;
+
+            filterData.push({coinRank, coinId, coinName, coinPrice, coin24Change, coinCap, coinVolume});
+        }
+        return res.status(200).json(filterData);
+    }catch(error){ res.status(404).json({msg: "Error to access currencys."})};
+});
 
 
 module.exports = router;

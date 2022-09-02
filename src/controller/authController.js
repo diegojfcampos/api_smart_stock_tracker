@@ -165,26 +165,29 @@ router.delete("/userdelete/", async (req,res)=>{
     }
 });
 
-router.put("/userupdate", async(req, res) => {
-    const {email, password, newPassword} = req.body
+router.put("/userinfoupdate", async(req, res) => {
+    const {email, password, newpassword} = req.body
 
     try{
         if(!email){
             res.status(400).json({message: "Email is required"})
         }else if(!password){
             res.status(400).json({message: "Password required"})
-        }else if(!newPassword){
-            res.status(400).json({message: "Check Password is required"})
-        }else{
+        }else if(!newpassword){
+            res.status(400).json({message: "New Password is required"});
+        }else{            
             dbconnhection();
-            const userToUpdate = await User.findOne({email: email});
-            const passwordChecking = bcrypt.compare(password, userToUpdate.password);
+            const userToUpdate = await User.findOne({email: email});            
+            const passwordChecking = await bcrypt.compare(password, userToUpdate.password);         
 
-            if(!passwordChecking){
+            if(!passwordChecking){                
                 res.status(400).json({message: "Wrong Password"})
             }else{
-                await User.updateOne({email: newPassword})
-                res.status(200).json({message: "Password Updated"})
+               
+                const salt = await bcrypt.genSalt(12)
+                const newPasswordHash = await bcrypt.hash(newpassword, salt);
+                await User.updateOne({email: newPasswordHash});                
+                res.status(200).json({message: "Password Updated"});
             }        
         }
     }catch(error){

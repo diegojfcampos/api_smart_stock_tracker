@@ -34,7 +34,14 @@ app.use("/userauth/", userID);
 const userDelete = require("./controller/authController");
 app.use("/userauth", userDelete);
 
+//Put - Updating Users Info
+const userPut = require("./controller/authController")
+app.use("/userauth", userPut);
+
 //Getting crypto currences
 const getcryptos = require("./routes/coinGeckApiRoute");
-app.use("/getcryptos", getcryptos);
+app.use("/getcryptos", getcryptos)
+
+const getFilteredBTC = require("./routes/coinGeckApiRoute");
+app.use("/getcryptos", getFilteredBTC)
 
