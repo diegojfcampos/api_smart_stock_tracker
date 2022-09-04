@@ -14,14 +14,15 @@ const dotenv = require("dotenv").config();
 //Route signup / register
 router.post("/register", async (req, res) =>{
     const{email, password, checkpassword} = req.body;
+    console.log(req.body)
 
     //Validations
     if(!email){
-        res.status(422).json({error: "Email is requerid"})
+        return res.status(422).json({error: "Email is requerid"})
     }else if(!password){
-        res.status(422).json({error: "Password is requerid"})
+        return res.status(422).json({error: "Password is requerid"})
     }else if(!checkpassword){
-        res.status(422).json({error: "Password Check field is requerid"})
+        return res.status(422).json({error: "Password Check field is requerid"})
 
     }else{
         //hashing passwords using "bcryptojs" before save on database
@@ -50,14 +51,14 @@ router.post("/register", async (req, res) =>{
                     //Registering User           
                     await User.create(user);           
                     console.log("To Post New User");
-                    res.status(200).json({message: "User Registered"})            
+                    return res.status(200).json({message: "User Registered"})            
                 }else{
-                    res.status(422).json({error: "Passwords are diferent."})
+                    return res.status(422).json({error: "Passwords are diferent."})
                 }
             }
         }catch(error){
             console.log("Ocurred an error" + error);
-            res.status(500).json({error: error + " Register Failed."});}
+            return res.status(500).json({error: error + " Register Failed."});}
     }           
        
 });

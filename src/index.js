@@ -2,9 +2,14 @@
 const express = require("express"); //importing express
 const app = express(); // instancing express
 
+//Importing dependencies to configurate server
+const http = require('http');
+const cors = require('cors');
+const bodyParser = require('body-parser')
 
-
-//Creating server and Allowing Json
+//Configurating Server
+app.use(cors());
+app.use(express.json());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
