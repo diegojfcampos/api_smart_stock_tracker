@@ -67,7 +67,7 @@ router.post("/register", async (req, res) =>{
 
 router.post("/login", async (req, res) => {
     const {email, password} = req.body;
-
+    
     if(!email){       
         return res.status(500).json({message: "Email is required"})
     }else if(!password){
@@ -109,10 +109,11 @@ function checkToken(req, res, next){
         return res.status(401).json({message: "Access Denied"});
     }else{
         try{
-
             const secret = process.env.secret;
-            jwt.verify(token, secret);
+            jwt.verify(token, secret)?res.status(200).json({status: true})
+            :res.status(200).json({status: false});
             next();
+            return 
 
         }catch(error){ return res.status(404).json({message: "Invalid TOKEN"})}
     }
