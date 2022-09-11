@@ -78,9 +78,9 @@ router.get("/btcfilter", async(req, res) =>{
             const coinCap = data[user].market_cap;
             const coinVolume = data[user].total_volume;
 
-            filterData.push({coinRank, coinId, coinName, coinPrice, coin24Change, coinCap, coinVolume});
+            filterData.push({coinRank, coinName, coinPrice, coin24Change, coinCap, coinVolume});
         }
-        return res.status(200).json(filterData);
+        return res.status(200).json(filterData)
     }catch(error){ res.status(404).json({msg: "Error to access currencys."})};
 });
 
