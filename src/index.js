@@ -47,6 +47,4 @@ app.use("/userauth", userPut);
 const getcryptos = require("./routes/coinGeckApiRoute");
 app.use("/getcryptos", getcryptos)
 
-const getFilteredBTC = require("./routes/coinGeckApiRoute");
-app.use("/getcryptos", getFilteredBTC)
 
