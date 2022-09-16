@@ -25,26 +25,29 @@ app.get("/",(req, res) => {
 
 //Register user
 const userRegister = require("./controller/authController");
-app.use("/userauth/", userRegister);
+app.use("/api/userauth/", userRegister);
 
 //Login
 const userLogin = require ("./controller/authController");
-app.use("/userauth/", userLogin);
+app.use("/api/userauth/", userLogin);
 
 //Search User
 const userID = require ("./controller/authController");
-app.use("/userauth/", userID);
+app.use("/api/userauth/", userID);
 
 //Delete User
 const userDelete = require("./controller/authController");
-app.use("/userauth", userDelete);
+app.use("/api/userauth/", userDelete);
 
 //Put - Updating Users Info
 const userPut = require("./controller/authController")
-app.use("/userauth", userPut);
+app.use("/api/userauth/", userPut);
 
 //Getting crypto currences
-const getcryptos = require("./routes/coinGeckApiRoute");
-app.use("/getcryptos", getcryptos)
+const getcryptos = require("./controller/coinGeckApiRoute");
+app.use("/api/getcryptos/", getcryptos)
+
+const addInWallet = require("./controller/wallet")
+app.use("/api/wallet/", addInWallet)
 
 
