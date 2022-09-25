@@ -48,6 +48,4 @@ const getcryptos = require("./controller/coinGeckApiRoute");
 app.use("/api/getcryptos/", getcryptos)
 
 const addInWallet = require("./controller/wallet")
-app.use("/api/wallet/", addInWallet)
-
-
+app.use("/api/wallet/", addInWallet);

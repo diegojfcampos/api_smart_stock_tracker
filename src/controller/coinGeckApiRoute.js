@@ -31,9 +31,10 @@ router.get("/eur", async(req, res) =>{
 
 //Getting coins quotation in BTC
 router.get("/btc", async(req, res) =>{
-
+    
     try{
         const response = await axios.get(urlGetCoinsBTC);
+        console.log(req.headers)
         return res.status(200).json(response.data);
     
         }catch(error){ res.status(404).json({msg: "Error to access currencys."})};

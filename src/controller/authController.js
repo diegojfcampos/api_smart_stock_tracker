@@ -76,23 +76,24 @@ router.post("/login", async (req, res) => {
             dbconnhection();    
             const user = await User.findOne({email: email});
             console.log(user);
+            console.log(typeof(user));
             if(!user){                
                 res.status(404).json({message: "User not found"})
-                console.log(typeof(checkPassword), checkPassword);
-                console.log(password, user.password)
             }else{            
                 const checkPassword = await bcrypt.compare(password, user.password);
                 if(!checkPassword){
                     res.status(404).json({message: "Wrong password"})
                 }else{
                     const secret = process.env.secret;
-                    const token = jwt.sign({id: user._id},secret);
-                    return res.status(200).json({user, Token: token})
+                    const token = jwt.sign({id: user._id},secret);   
+                    console.log(token);
+                    console.log(typeof(token));                 
+                    return res.json({user: user, token: token})
                 }                
             }     
         }catch(error){
             console.log("Error fields validation" + error);
-            return res.status(501).json({message: "Log in failed"})
+            return res.json({message: "Log in failed"})
         }
     }
 })
