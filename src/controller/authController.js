@@ -115,7 +115,7 @@ function checkToken(req, res, next){
             next();
             return 
 
-        }catch(error){ return res.status(404).json({message: "Invalid TOKEN"})}
+        }catch(error){ return res.json({message: "Invalid TOKEN"})}
     }
 }
 
@@ -137,7 +137,7 @@ router.get("/:id",checkToken, async (req, res) =>{
 
 })
 
-router.delete("/userdelete/", async (req,res)=>{
+router.delete("/userdelete/",checkToken, async (req,res)=>{
 
     const {email, password} = req.body;
 
@@ -167,7 +167,7 @@ router.delete("/userdelete/", async (req,res)=>{
     }
 });
 
-router.put("/userinfoupdate", async(req, res) => {
+router.put("/userinfoupdate",checkToken, async(req, res) => {
     const {email, password, newpassword} = req.body
 
     try{

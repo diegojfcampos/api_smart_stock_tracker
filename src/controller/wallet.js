@@ -7,7 +7,7 @@ router.post("/:id/buy", async (req, res) => {
     const useriD = req.params.id
     const {currency, name, value, amount,tax, date} = req.body
     const cryptoToadd = {currency, name, value, amount,tax, date}    
-
+    const nameCrypto = req.body.name
     try{
         dbconnhection();
         
