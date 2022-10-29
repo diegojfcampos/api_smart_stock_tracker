@@ -45,7 +45,7 @@ app.use("/api/userauth/", userPut);
 
 //Getting crypto currences
 const getcryptos = require("./controller/coinGeckApiRoute");
-app.use("/api/getcryptos/", getcryptos)
+app.use("/api/getcryptos/", getcryptos);
 
 const addInWallet = require("./controller/wallet")
 app.use("/api/wallet/", addInWallet);
