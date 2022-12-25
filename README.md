@@ -36,6 +36,10 @@ Start the server
 ```bash
   npm start
 ```
+## Authors
+
+- [@diegojfcampos](https://www.github.com/diegojfcampos)
+
 
 
 
