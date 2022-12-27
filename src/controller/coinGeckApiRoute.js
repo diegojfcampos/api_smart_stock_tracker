@@ -8,12 +8,13 @@ const urlGetCoinsEUR = "https://api.coingecko.com/api/v3/coins/markets?vs_curren
 const urlGetCoinsBTC = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=btc&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C%2024h%2C%207d%2C%2014d%2C%2030d%2C%20200d%2C%201y";
 
 
-
 //Getting coins quotation in USD
 router.get("/usd", async(req, res) =>{
 
         try{
-        const response = await axios.get(urlGetCoinsUSD);
+        const response = await axios.get(urlGetCoinsUSD);       
+        console.log("Returning a json file with details of 100 crypto stocks in USD currency");
+        
         return res.status(200).json(response.data);
 
         }catch(error){ res.status(404).json({msg: "Error to access currencys."})};
@@ -23,7 +24,8 @@ router.get("/usd", async(req, res) =>{
 router.get("/eur", async(req, res) =>{
 
     try{
-    const response = await axios.get(urlGetCoinsEUR);
+    const response = await axios.get(urlGetCoinsEUR);    
+    console.log("Returning a json file with details of 100 crypto stocks in EUR currency");
     return res.status(200).json(response.data);
 
     }catch(error){ res.status(404).json({msg: "Error to access currencys."})};
@@ -34,7 +36,8 @@ router.get("/btc", async(req, res) =>{
     
     try{
         const response = await axios.get(urlGetCoinsBTC);
-        console.log(req.headers)
+        //console.log(req.headers)
+        console.log("Returning a json file with details of 100 crypto stocks in BTC currency");
         return res.status(200).json(response.data);
     
         }catch(error){ res.status(404).json({msg: "Error to access currencys."})};
@@ -71,6 +74,7 @@ router.get("/:id", async(req, res) => {
         const id = req.params.id
         url = `https://api.coingecko.com/api/v3/coins/${id}`;
         const response = await axios.get(url)
+        console.data("Getting Currency by ID");
         return res.status(200).json(response.data)
     }catch(error){res.status(400).json({message: "Erro to get currency"})}
 });

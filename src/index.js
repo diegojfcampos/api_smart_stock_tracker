@@ -11,14 +11,15 @@ const bodyParser = require('body-parser')
 app.use(cors());
 app.use(express.json());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 //Importing moongose /Server
 const moongose = require("mongoose");
 //Running Server
 app.listen(8000);
-app.get("/",(req, res) => {       
-       return res.json({message: "Server Running"})
+app.get("/", (req, res) => {
+       console.log("Server running");
+       return res.status(200).json({ message: "Server Running" })
 });
 
 //Routes
@@ -28,11 +29,11 @@ const userRegister = require("./controller/authController");
 app.use("/api/userauth/", userRegister);
 
 //Login
-const userLogin = require ("./controller/authController");
+const userLogin = require("./controller/authController");
 app.use("/api/userauth/", userLogin);
 
 //Search User
-const userID = require ("./controller/authController");
+const userID = require("./controller/authController");
 app.use("/api/userauth/", userID);
 
 //Delete User
@@ -49,3 +50,8 @@ app.use("/api/getcryptos/", getcryptos);
 
 const addInWallet = require("./controller/wallet")
 app.use("/api/wallet/", addInWallet);
+
+const getWallet = require("./controller/wallet");
+app.use("api/wallet", getWallet);
+
+
