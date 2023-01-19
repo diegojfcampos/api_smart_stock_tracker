@@ -1,5 +1,5 @@
 
-# Api Smart Stock Tracker
+# Api RESTful Smart Stock Tracker
 
 API NodeJs created to provide stock's information and solve common problems in other portfolio management applications.
 
