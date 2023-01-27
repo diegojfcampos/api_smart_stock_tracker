@@ -4,9 +4,9 @@
 API NodeJs created to provide stock's information and solve common problems in other portfolio management applications.
 
 #### DataBase
-- MongoDB-Atlas(MongoCompass), 
+  - MongoDB-Atlas(MongoCompass), 
 
-### Dependecies
+### Technologies
   - Express
   - Nodemon
   - Mongoose
@@ -15,8 +15,30 @@ API NodeJs created to provide stock's information and solve common problems in o
 #### CyberSecurity
   - DotEnv
   - JWT
-  - BCrypt 
+  - BCrypt   
   
+## Dependencies
+```bash
+npm start
+```
+```bash
+ "dependencies": {
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "coingecko-api": "^1.0.10",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+```
+    
 #### Testing
   - Postman
 
