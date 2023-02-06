@@ -1,12 +1,23 @@
 
-# Api Smart Stock Tracker
+# Api RESTful Smart Stock Tracker
 
 API NodeJs created to provide stock's information and solve common problems in other portfolio management applications.
 
-#### DataBase
-- MongoDB-Atlas(MongoCompass), 
+<div style="display: inline_block"><br> 
+	
+   <img align="center" alt="Diego-Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg"> 
+    <img align="center" alt="Diego-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg">
+     <img align="center" alt="Diego-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg">
+  <img align="center" alt="Diego-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg">
+  <img align="center" alt="Diego-CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">   
+  <img align="center" alt="Diego-CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg"> 
+<img align="center" alt="Diego-CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/azure/azure-original.svg"> 
+</div>
 
-### Dependecies
+#### DataBase
+  - MongoDB-Atlas(MongoCompass), 
+
+### Technologies
   - Express
   - Nodemon
   - Mongoose
@@ -15,8 +26,30 @@ API NodeJs created to provide stock's information and solve common problems in o
 #### CyberSecurity
   - DotEnv
   - JWT
-  - BCrypt 
+  - BCrypt   
   
+## Dependencies
+```bash
+npm start
+```
+```bash
+ "dependencies": {
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "coingecko-api": "^1.0.10",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+```
+    
 #### Testing
   - Postman
 
