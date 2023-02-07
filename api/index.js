@@ -52,6 +52,6 @@ const addInWallet = require("../src/controller/wallet")
 app.use("/api/wallet/", addInWallet);
 
 const getWallet = require("../src/controller/wallet");
-app.use("api/wallet", getWallet);
+app.use("/api/wallet", getWallet);
 
 
