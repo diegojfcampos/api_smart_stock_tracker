@@ -1,14 +1,15 @@
 {
-    "builds": [
+    "name": "api_smart_stock_tracker",
+    "version": 2,
+    "public": true,
+    "build": {
+        "src": "api/index.js",
+        "use": "@vercel/node"
+    },
+    "routes":[
         {
-            "src": "./app.js",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/app.js"
-        }
+        "src": "/(.*)",
+        "dest": "api/index.js"
+    }
     ]
 }
