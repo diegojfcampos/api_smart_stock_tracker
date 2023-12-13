@@ -1,6 +1,30 @@
+const fastify = require("fastify")({logger: true})
+const fastifyEnv = require('@fastify/env')
+const dbOptions = require("../src/database/dbOptions")
+
+async function start(){
+       try{
+         //Registering Cors
+         fastify.register(require("@fastify/cors",{origin: "*"}))
+         fastify.log.info("Cors registered")
+
+         //Registesring @fastify/env
+         await fastify.register(fastifyEnv, dbOptions)
+         //Registering MongoDB
+
+
+         await fastify.listen({port: 3000})
+         fastify.log.info(`Server running on ${fastify.server.address().port}`)
+
+       }catch(err){
+          fastify.log.error(err)
+          process.exit(1)
+       }
+}
+start()
 //Importing Express / REQ, RES
 const express = require("express"); //importing express
-const app = express(); // instancing express
+const app = express(); // instancing expressS
 
 //Importing dependencies to configurate server
 const http = require('http');
@@ -52,6 +76,7 @@ const addInWallet = require("../src/controller/wallet")
 app.use("/api/wallet/", addInWallet);
 
 const getWallet = require("../src/controller/wallet");
+
 app.use("/api/wallet", getWallet);
 
 
